@@ -60,7 +60,7 @@ namespace MLOOP_L2
         {
             if (x >= Console.BufferWidth || y >= Console.BufferHeight)
             {
-                return; // Полностью за пределами экрана по правому или нижнему краю
+                return; // Навіщо малювати те, що повністю за межами екрану?
             }
 
             int currentY = y;
@@ -78,48 +78,38 @@ namespace MLOOP_L2
             {
                 string line;
 
-                // Пропускаем строки, если y отрицательный
                 while (lineCount < lineOffset && (line = strReader.ReadLine()) != null)
                 {
                     lineCount++;
                 }
 
-                lineCount = 0; // Сбрасываем счетчик для отображаемых строк
+                lineCount = 0;
 
-                // Читаем и отображаем строки
                 while ((line = strReader.ReadLine()) != null && currentY < Console.BufferHeight)
                 {
-                    // Вычисляем горизонтальное смещение для отображаемой части строки
                     int charOffset = 0;
                     int displayX = x;
 
                     if (x < 0)
                     {
-                        charOffset = -x;     // Сколько символов нужно пропустить с начала строки
-                        displayX = 0;        // Начинаем отображение с левого края экрана
+                        charOffset = -x;
+                        displayX = 0;
                     }
 
-                    // Проверяем, осталось ли что-нибудь для отображения после смещения
                     if (charOffset < line.Length)
                     {
-                        // Определяем доступную ширину для текущей строки
                         int availableWidth = Console.BufferWidth - displayX;
-
-                        // Вычисляем отображаемую часть строки с учетом смещения и доступной ширины
                         string displayLine = line.Substring(charOffset);
 
-                        // Обрезаем строку, если она слишком длинная для доступной ширины
                         if (displayLine.Length > availableWidth)
                         {
                             displayLine = displayLine.Substring(0, availableWidth);
                         }
 
-                        // Устанавливаем позицию и выводим строку
                         Console.SetCursorPosition(displayX, currentY);
                         Console.Write(displayLine);
                     }
 
-                    // Переходим к следующей строке
                     currentY++;
                     lineCount++;
                 }
@@ -213,7 +203,6 @@ namespace MLOOP_L2
 
         static void DrawStraightLine(int x1, int y1, int x2, int y2, char fillSymbol = '#', int delayTime = 1, int delayfrequency = 15)
         {
-            // Получаем размеры буфера консоли
             int bufferWidth = Console.BufferWidth;
             int bufferHeight = Console.BufferHeight;
 
@@ -223,7 +212,6 @@ namespace MLOOP_L2
                 direction = y2 - y1 > 0 ? 1 : -1;
                 for (int i = y1; i != y2 + direction; i += direction)
                 {
-                    // Проверяем, находится ли точка в пределах буфера
                     if (x1 >= 0 && x1 < bufferWidth && i >= 0 && i < bufferHeight)
                     {
                         Console.SetCursorPosition(x1, i);
@@ -238,7 +226,6 @@ namespace MLOOP_L2
                 direction = x2 - x1 > 0 ? 1 : -1;
                 for (int i = x1; i != x2 + direction; i += direction)
                 {
-                    // Проверяем, находится ли точка в пределах буфера
                     if (i >= 0 && i < bufferWidth && y1 >= 0 && y1 < bufferHeight)
                     {
                         Console.SetCursorPosition(i, y1);
