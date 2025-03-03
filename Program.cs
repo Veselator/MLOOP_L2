@@ -164,7 +164,7 @@ namespace MLOOP_L2
             double u; // Поточний елемент
             double[] possibleXs = { (2 * Math.PI) / 3, (8 * Math.PI) / 3, (28 * Math.PI) / 3 };
             double currentX = 2;
-            double y = Math.Cos(currentX / 2);
+            double y;
             double difference;
             string outLine;
 
@@ -174,6 +174,7 @@ namespace MLOOP_L2
                 i = 1;
                 u = 1;
                 currentX = possibleXs[j];
+                y = Math.Cos(currentX / 2);
 
                 Console.WriteLine(" ----------------------------------------------------------------------");
                 Console.WriteLine($" {GREEN}X = {currentX}{NORMAL}");
